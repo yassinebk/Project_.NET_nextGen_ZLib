@@ -4,18 +4,31 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+/*
+* Each book represents a physical copy of the titled book. That's why I am embedding the filename and the format as well as the language and 
+* the number of pages. The price is also embedded in the book. The book cover is also embedded in the book.
+* We will have some data duplicated but for the sake of simplicity we can keep it this way as it will not affect any features.
+*
+*/
 namespace Project.Models
 {
     public class Book
     {
         [Key]
         public string ISBN { set; get; } = String.Empty;
+
         public string Title { set; get; } = String.Empty;
         public string Summary { set; get; } = String.Empty;
         public string Format { set; get; } = String.Empty;
 
+        public string Language { set; get; } = String.Empty;
+
+        public string FileName { set; get; } = String.Empty;
+
+
         [Display(Name = "Author")]
         public Author? BookAuthor { set; get; }
+
         public Int32 AuthorId { set; get; }
         public string Genre { set; get; } = String.Empty;
 
