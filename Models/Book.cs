@@ -40,8 +40,5 @@ namespace Project.Models
         [Display(Name = "Book Cover")]
         public string BookCover { get; set; } = String.Empty;
 
-
-
-
     }
 }
