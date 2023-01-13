@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Library" />
     <Folder Include="Migrations" />
+    <Folder Include="wwwroot\books" />
   </ItemGroup>
 
     <ItemGroup>
@@ -30,7 +31,16 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Include="wwwroot\books\TD4.pdf" />
       <None Include="wwwroot\icon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\books\cours_complexite3.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\books\IMG_20220701_155829.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\books\TD2 complexité.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\books\TD3b.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\books\TD4.pdf" />
     </ItemGroup>
 
     <Target Name="Tailwind" BeforeTargets="Build">

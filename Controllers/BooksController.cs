@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.Data;
 using Project.Models;
+using System.IO;
+using System.Web;
+
 
 namespace Project.Controllers
 {
@@ -55,10 +58,36 @@ namespace Project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ISBN,Title,Summary,Format,Language,FileName,AuthorId,Genre,Price,NumberOfPages,PublisherId,DatePublished,BookCover")] Book book)
+        public async Task<IActionResult> Create([Bind("ISBN,Title,Summary,Format,Language,AuthorId,Genre,Price,NumberOfPages,PublisherId,DatePublished")] Book book)
         {
             if (ModelState.IsValid)
             {
+                // var filePath = Path.GetTempFileName();
+                var filePath = Directory.GetCurrentDirectory() + "\\wwwroot\\books\\" ;
+                foreach (var formFile in Request.Form.Files)
+                {
+                    Console.WriteLine(filePath);
+                    Console.WriteLine(formFile);
+                    if (formFile.Length > 0)
+                    {
+                        Console.WriteLine(filePath);
+                        using (var inputStream = new FileStream(filePath+formFile.FileName, FileMode.Create))
+                        {
+                            // read file to stream
+                            await formFile.CopyToAsync(inputStream);
+                            // stream to byte array
+                            byte[] array = new byte[inputStream.Length];
+                            inputStream.Seek(0, SeekOrigin.Begin);
+                            inputStream.Read(array, 0, array.Length);
+                            // get file name
+                            string fName = formFile.FileName;
+                        }
+                        if(formFile.Name == "file")
+                            book.FileName = formFile.FileName;
+                        if (formFile.Name == "cover")
+                            book.BookCover = formFile.FileName;
+                    }
+                }
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
