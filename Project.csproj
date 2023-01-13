@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Library" />
     <Folder Include="Migrations" />
+    <Folder Include="wwwroot\authors" />
     <Folder Include="wwwroot\books" />
   </ItemGroup>
 

@@ -6,6 +6,7 @@ Library
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 /wwwroot/books/
+/wwwroot/authors/
 
 # User-specific files
 *.suo

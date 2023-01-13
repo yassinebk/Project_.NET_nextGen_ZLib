@@ -10,7 +10,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-auto">
     <thead>
         <tr>
             <th>
@@ -89,7 +89,7 @@
                 @Html.DisplayFor(modelItem => item.DatePublished)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BookCover)
+                <img src="~/books/@item.BookCover"   onerror="this.onerror=null; this.src='@item.BookCover'" alt="Cover image">
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ISBN">Edit</a> |

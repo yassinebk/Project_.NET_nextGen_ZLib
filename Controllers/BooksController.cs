@@ -62,12 +62,9 @@ namespace Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                // var filePath = Path.GetTempFileName();
                 var filePath = Directory.GetCurrentDirectory() + "\\wwwroot\\books\\" ;
                 foreach (var formFile in Request.Form.Files)
                 {
-                    Console.WriteLine(filePath);
-                    Console.WriteLine(formFile);
                     if (formFile.Length > 0)
                     {
                         Console.WriteLine(filePath);

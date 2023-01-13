@@ -56,10 +56,30 @@ namespace Project.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,Bio,AuthorImage,WikiLink")] Author author)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,Bio,WikiLink")] Author author)
         {
             if (ModelState.IsValid)
             {
+                var filePath = Directory.GetCurrentDirectory() + "\\wwwroot\\authors\\" ;
+                foreach (var formFile in Request.Form.Files)
+                {
+                    if (formFile.Length > 0)
+                    {
+                        Console.WriteLine(filePath);
+                        using (var inputStream = new FileStream(filePath+formFile.FileName, FileMode.Create))
+                        {
+                            // read file to stream
+                            await formFile.CopyToAsync(inputStream);
+                            // stream to byte array
+                            byte[] array = new byte[inputStream.Length];
+                            inputStream.Seek(0, SeekOrigin.Begin);
+                            inputStream.Read(array, 0, array.Length);
+                            // get file name
+                            string fName = formFile.FileName;
+                        }
+                        author.AuthorImage = formFile.FileName;
+                    }
+                }
                 _context.Add(author);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
