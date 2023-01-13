@@ -48,8 +48,12 @@ namespace Project.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id");
-            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Id");
+            string currentUser = User.Identity.Name;
+            Console.WriteLine("yup");
+            Console.WriteLine(currentUser);
+            Console.WriteLine("heeeere \n \n\n\n\n");
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "FullName");
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Name");
             return View();
         }
 

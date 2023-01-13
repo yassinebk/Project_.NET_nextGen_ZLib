@@ -595,6 +595,14 @@ video {
   width: 50%;
 }
 
+.w-10\/12 {
+  width: 83.333333%;
+}
+
+.w-2\/12 {
+  width: 16.666667%;
+}
+
 .table-auto {
   table-layout: auto;
 }
