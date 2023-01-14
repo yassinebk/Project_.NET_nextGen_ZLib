@@ -98,6 +98,14 @@ namespace Project.Controllers
             return View(book);
         }
 
+        [HttpGet("/Books/Search/{key}")]
+        public async Task<IActionResult> Search(string key)
+        {
+            List<Book> books = _context.SearchBook(key);
+            // Console.WriteLine(books.Count);
+            return Json(books);
+        }
+
         // GET: Books/Edit/5
         public async Task<IActionResult> Edit(string id)
         {

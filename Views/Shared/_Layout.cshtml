@@ -16,12 +16,25 @@
                     <img height="100" width="200" src="~/icon.png" alt="Bookly">
                 </a>
                 <div class="flex flex-row items-center justify-center space-x-3 font-mono">
-                    <div class="w-10/12">
+                    <div class="">
                         <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
                         <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Authors" asp-action="Index">Authors</a>
                         <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Publishers" asp-action="Index">Publishers</a>
                     </div>
-                    <div class="w-2/12">
+                    <div class="flex flex-row m-3">
+                        <div class="flex justify-center">
+                          <div class="m-3 xl:w-96">
+                            <input
+                              type="search"
+                              class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              id="search"
+                              placeholder="Search for a book or an author"
+                            />
+                          </div>
+                        </div>
+                    </div>
+                    <div>
+                        
                         <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
                         <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Users" asp-action="Register">Register</a>
                     </div>
@@ -53,6 +66,28 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#search").keyup(function() {
+    var inputValue = $(this).val();
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/Books/Search/"+inputValue,
+        success: function(response) {
+            console.log(inputValue)
+            console.log(response)
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+  });
+});
+
+</script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
