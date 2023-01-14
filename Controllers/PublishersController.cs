@@ -11,7 +11,6 @@ using Project.Models;
 
 namespace Project.Controllers
 {
-    [Authorize("ADMIN")]
     public class PublishersController : Controller
     {
         private readonly CoreModelsDataContext _context;
@@ -24,15 +23,13 @@ namespace Project.Controllers
         // GET: Publishers
         public async Task<IActionResult> Index()
         {
-              return _context.Publishers != null ? 
-                          View(await _context.Publishers.ToListAsync()) :
-                          Problem("Entity set 'CoreModelsDataContext.Publishers'  is null.");
+            return View(await _context.Publishers.ToListAsync());
         }
 
         // GET: Publishers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Publishers == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -48,6 +45,8 @@ namespace Project.Controllers
         }
 
         // GET: Publishers/Create
+
+        [Authorize("ADMIN")]
         public IActionResult Create()
         {
             return View();
@@ -56,9 +55,12 @@ namespace Project.Controllers
         // POST: Publishers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize("ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address,City,State,ZipCode,Country")] Publisher publisher)
+        public async Task<IActionResult> Create(
+            [Bind("Id,Name,Address,City,State,ZipCode,Country")] Publisher publisher)
         {
             if (ModelState.IsValid)
             {
@@ -66,13 +68,16 @@ namespace Project.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(publisher);
         }
 
         // GET: Publishers/Edit/5
+
+        [Authorize("ADMIN")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Publishers == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -82,15 +87,19 @@ namespace Project.Controllers
             {
                 return NotFound();
             }
+
             return View(publisher);
         }
 
         // POST: Publishers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize("ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address,City,State,ZipCode,Country")] Publisher publisher)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("Id,Name,Address,City,State,ZipCode,Country")] Publisher publisher)
         {
             if (id != publisher.Id)
             {
@@ -115,15 +124,19 @@ namespace Project.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(publisher);
         }
 
         // GET: Publishers/Delete/5
+
+        [Authorize("ADMIN")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Publishers == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -139,27 +152,24 @@ namespace Project.Controllers
         }
 
         // POST: Publishers/Delete/5
+        [Authorize("ADMIN")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Publishers == null)
-            {
-                return Problem("Entity set 'CoreModelsDataContext.Publishers'  is null.");
-            }
             var publisher = await _context.Publishers.FindAsync(id);
             if (publisher != null)
             {
                 _context.Publishers.Remove(publisher);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PublisherExists(int id)
         {
-          return (_context.Publishers?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Publishers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
