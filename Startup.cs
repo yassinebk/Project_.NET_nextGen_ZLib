@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
+using Microsoft.Net.Http.Headers;
 using Project.Models;
 
 namespace Project;
@@ -19,6 +19,10 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.IgnoreNullValues = true; })
+            .AddXmlSerializerFormatters()
+            .AddFormatterMappings(m => m.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("application/xml")));
+
         services.AddDbContext<CoreModelsDataContext>(options =>
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
