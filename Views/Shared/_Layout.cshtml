@@ -9,43 +9,7 @@
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="fixed -mt-5 w-full navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 
-            <div class="container-fluid flex flex-row space-x-3" style="background-color: #df404d; color: #1b1f44">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img height="100" width="200" src="~/icon.png" alt="Bookly">
-                </a>
-                <div class="flex flex-row items-center justify-center space-x-3 font-mono">
-                    <div class="w-10/12">
-                        <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
-                        <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Authors" asp-action="Index">Authors</a>
-                        <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Publishers" asp-action="Index">Publishers</a>
-                    </div>
-                    <div class="w-2/12">
-                        <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Users" asp-action="Login">Login</a>
-                        <a class="nav-link text-2xl align-middle" asp-area="" asp-controller="Users" asp-action="Register">Register</a>
-                    </div>
-                </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <Books class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </Books>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container mt-5 pt-5 m-3">
-        <main role="main" class="pb-3 mt-5 pt-5 m-3">
-
-            @RenderBody()
-        </main>
-    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -55,6 +19,28 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#search").keyup(function() {
+    var inputValue = $(this).val();
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: "/Books/Search/"+inputValue,
+        success: function(response) {
+            console.log(inputValue)
+            console.log(response)
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+  });
+});
+
+</script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
