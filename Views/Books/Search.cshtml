@@ -1,10 +1,9 @@
-@model ListWithPaginationModel<Book>
+﻿@model Project.Models.ListWithPaginationModel<Project.Models.Book>
 
 @{
-    ViewData["Title"] = "List";
+    ViewBag.Title = "title";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="w-screen flex flex-col justify-center items-center gap-3">
     @if (ViewData["searchQuery"] != null)
