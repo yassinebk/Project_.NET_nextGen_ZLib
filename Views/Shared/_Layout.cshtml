@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 </head>
 <body>
 <header class="max-h-[100px] fixed right-0 left-0 w-full top-0 z-[100]">
     <nav class="py-2 h-full w-full navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 top-0">
-
         <div class="container-fluid flex flex-row space-x-3">
             <a class="" asp-area="" asp-controller="Home" asp-action="Index">
                 <img height="100" width="200" src="~/icon.png" alt="Bookly">
@@ -146,7 +147,7 @@
                 </svg>
             </a>
         </div>
-<div class="mb-6">
+        <div class="mb-6">
             <h5 class="uppercase font-bold mb-2.5">Navigation</h5>
 
             <ul class="list-none mb-0 space-y-4">
@@ -170,8 +171,7 @@
             </p>
         </div>
 
-        
-    </div>
+
     </div>
 
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.2);">
@@ -182,36 +182,16 @@
 @await RenderSectionAsync("Scripts", required: false)
 
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Bookly - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2022 - Bookly - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>
-$(document).ready(function() {
-  $("#search").keyup(function() {
-    var inputValue = $(this).val();
-    $.ajax({
-        type: "GET",
-        contentType: "application/json",
-        url: "/Books/Search/"+inputValue,
-        success: function(response) {
-            console.log(inputValue)
-            console.log(response)
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-  });
-});
 
-</script>
-    @await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
