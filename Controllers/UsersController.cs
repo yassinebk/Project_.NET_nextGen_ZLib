@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project.Data;
@@ -36,20 +38,22 @@ namespace Project.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl)
         {
+
             if (ModelState.IsValid)
+                //   hb*x!rV%@6Ky 
             {
+
+                Console.WriteLine(model);
+                var user = _context.Users.FirstOrDefault(u => u.Email==model.Email);
+                if (user == null) return View(model);
                 var result =
-                    await _signInManager.CheckPasswordSignInAsync(new User { Email = model.Email }, model.Password,
+                    await _signInManager.CheckPasswordSignInAsync(user, model.Password,
                         false);
+                Console.WriteLine(result);
                 if (result.Succeeded)
                 {
-                    var user = _context.Users.SingleOrDefault(u => u.Email == model.Email);
-                    Console.WriteLine(user.Role);
 
-                    var claims = new List<Claim>
-                        { new Claim(ClaimTypes.Name, model.Email), new Claim(ClaimTypes.Role, user.Role) };
-                    var claimsIdentity =
-                        new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Email), new Claim(ClaimTypes.Role, user.Role??"USER") };
                     await _signInManager.SignInWithClaimsAsync(user, model.RememberMe, claims);
                 }
                 else

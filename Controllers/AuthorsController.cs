@@ -11,6 +11,8 @@ using Project.Models;
 
 namespace Project.Controllers
 {
+    
+    [Authorize(Roles = "ADMIN")]
     public class AuthorsController : Controller
     {
         private readonly CoreModelsDataContext _context;
@@ -23,9 +25,9 @@ namespace Project.Controllers
         // GET: Authors
         public async Task<IActionResult> Index()
         {
-              return _context.Authors != null ? 
-                          View(await _context.Authors.ToListAsync()) :
-                          Problem("Entity set 'CoreModelsDataContext.Authors'  is null.");
+            return _context.Authors != null ? 
+                View(await _context.Authors.ToListAsync()) :
+                Problem("Entity set 'CoreModelsDataContext.Authors'  is null.");
         }
 
         // GET: Authors/Details/5
@@ -178,7 +180,7 @@ namespace Project.Controllers
 
         private bool AuthorExists(int id)
         {
-          return (_context.Authors?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Authors?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

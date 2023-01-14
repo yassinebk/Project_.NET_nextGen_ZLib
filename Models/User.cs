@@ -13,8 +13,6 @@ namespace Project.Models
 {
     public class User : IdentityUser
     {
-        
-        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Int32 Id { get; set; }
