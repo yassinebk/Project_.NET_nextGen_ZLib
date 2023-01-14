@@ -1,12 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.Data;
 using Project.Models;
-using System.IO;
-using System.Web;
-using Microsoft.AspNetCore.Authorization;
-
 
 namespace Project.Controllers
 {
@@ -14,23 +11,61 @@ namespace Project.Controllers
     {
         private readonly CoreModelsDataContext _context;
 
+
         public Books(CoreModelsDataContext context)
         {
             _context = context;
         }
 
         // GET: Books
-        public async Task<IActionResult> Index(int? page)
+        public async Task<IActionResult> Search(string? query, int? page)
         {
             var coreModelsDataContext = _context.Books.Include(b => b.BookAuthor).Include(b => b.BookPublisher);
-            
+
+            if (query == null)
+            {
+                return Redirect("/Books/Index");
+            }
             // return View(await coreModelsDataContext.ToListAsync());
 
             int totalNumberOfPages = coreModelsDataContext.Count();
 
             int pages = (totalNumberOfPages / 5);
 
-            if ((totalNumberOfPages % 5) !=  0) pages += 1;
+            if ((totalNumberOfPages % 5) != 0) pages += 1;
+            if (page == null)
+                return View(
+                    new ListWithPaginationModel<Book>(
+                        coreModelsDataContext
+                            .Where(b => b.Title.ToLower().Contains(query) )
+                            .Take<Book>(5).ToList(),
+                        pages,
+                        1
+                    ));
+
+            int numberToSkip = (page.Value - 1) * 5;
+
+            return View(new ListWithPaginationModel<Book>(
+                coreModelsDataContext
+                    .Where(b => b.Title.ToLower().Contains(query) )
+                    .Skip<Book>(numberToSkip).Take<Book>(5).ToList(),
+                pages,
+                page.Value));
+        }
+
+        public async Task<IActionResult> Index(int? page)
+        {
+            var coreModelsDataContext = _context.Books
+                .Include(b => b.BookAuthor)
+                .Include(b => b.BookPublisher);
+
+            // return View(await coreModelsDataContext.ToListAsync());
+
+            int totalNumberOfPages = coreModelsDataContext.Count();
+
+            int pages = (totalNumberOfPages / 5);
+
+            if ((totalNumberOfPages % 5) != 0) pages += 1;
             if (page == null)
                 return View(
                     new ListWithPaginationModel<Book>(
@@ -38,8 +73,8 @@ namespace Project.Controllers
                         pages,
                         1
                     ));
-            
-            int numberToSkip = (page.Value-1) * 5;
+
+            int numberToSkip = (page.Value - 1) * 5;
 
             return View(new ListWithPaginationModel<Book>(
                 coreModelsDataContext.Skip<Book>(numberToSkip).Take<Book>(5).ToList(),
@@ -127,6 +162,7 @@ namespace Project.Controllers
             return View(book);
         }
 
+      
         [HttpGet("/Books/Search/{key}")]
         public async Task<IActionResult> Search(string key)
         {

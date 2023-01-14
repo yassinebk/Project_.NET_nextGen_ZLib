@@ -32,7 +32,6 @@ namespace Project.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            
             return View();
         }
 

@@ -19,20 +19,27 @@
                 <h1 class="text-5xl font-bold">Where you can find all humanity's boosks, <span class="text-blue-500">W-Library</span></h1>
                 <p class="text-2xl">The successor of the hiding Z-Library but with More features more fun !</p>
             </div>
-            <form action="" class="w-[70vw] max-w-[700px]">
+            <form action="Books/Search" class="w-[70vw] max-w-[700px] relative">
                 <div class="w-full bg-white border-2 text-sans text-lg border-black px-2 flex items-center py-4  rounded-xl ">
-                    <input id="search" type="text" placeholder="Search for a book, you can search by title, author, description ..." class=" px-4 w-full active:outline-none active:border-none active:text-gray-800 border-none outline-none">
-
+                    <input name="query" id="search" type="text" placeholder="Search for a book, you can search by title, author, description ..." class=" px-4 w-full active:outline-none active:border-none active:text-gray-800 border-none outline-none">
+                    i
                     <button type="submit">
-                        <span class="material-symbols-outlined">Search</span>
+                        <span class="material-symbols-outlined max-w-[40px]">
+                            Search
+                        </span>
                     </button>
                 </div>
-            </form>
-            <div class="flex max-h-[300px] justify-center overflow-auto">
-                <ul id="suggestions" class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
+                <div class="bg-white border-2 border-black absolute flex w-full left-0 right-0 max-h-[300px] justify-center overflow-auto">
+                    <ul id="suggestions" class="w-full bg-white rounded-lg border border-gray-200  text-gray-900">
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            </form>
+
+            @* <ul id="suggestions" class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900"> *@
+            @* *@
+            @* </ul> *@
+
         </div>
     </div>
 
