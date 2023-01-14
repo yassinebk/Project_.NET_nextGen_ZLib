@@ -19,7 +19,7 @@ namespace Project.Data
         public List<Book> SearchBook(string key)
         {
             // return Books.Where(b => (b.BookAuthor.FullName.Contains(key) || b.Title.Contains(key))).ToList();
-            return Books.Where(b => (b.Title.ToLower().Contains(key.ToLower()) || b.Summary.ToLower().Contains(key.ToLower()))).ToList();
+            return Books.Include(b => b.BookAuthor).ToList().Where(b => (b.BookAuthor.FullName.ToLower().Contains(key.ToLower()) || b.Title.ToLower().Contains(key.ToLower()) || b.Summary.ToLower().Contains(key.ToLower()))).ToList();
 
         }
     }

@@ -32,6 +32,7 @@ namespace Project.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            
             return View();
         }
 
@@ -53,6 +54,7 @@ namespace Project.Controllers
                     var claims = new List<Claim>
                         { new Claim(ClaimTypes.Name, model.Email), new Claim(ClaimTypes.Role, user.Role ?? "USER") };
                     await _signInManager.SignInWithClaimsAsync(user, model.RememberMe, claims);
+                    return RedirectToAction("Index", "Books");
                 }
                 else
                 {
@@ -88,7 +90,7 @@ namespace Project.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return Redirect("~/Users/Login?redirect=Signup");
                 }
                 else
                 {

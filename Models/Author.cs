@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
@@ -27,7 +28,8 @@ namespace Project.Models
 
         [DataType(DataType.ImageUrl)]
         public string AuthorImage { get; set; } = String.Empty;
-
+        
+        [JsonIgnore]
         public ICollection<Book>? Books { get; set; }
 
         public string WikiLink { get; set; } = String.Empty;

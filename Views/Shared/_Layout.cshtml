@@ -14,11 +14,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 </head>
 <body class="bg-white ">
 <header class="max-h-[100px] fixed right-0 left-0 w-full top-0 z-[100]">
     <nav class="py-2 h-full w-full navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 top-0">
-
         <div class="container-fluid flex flex-row space-x-3">
             <a class="" asp-area="" asp-controller="Home" asp-action="Index">
                 <img height="100" width="200" src="~/icon.png" alt="Bookly">
@@ -196,25 +197,7 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>
-$(document).ready(function() {
-  $("#search").keyup(function() {
-    var inputValue = $(this).val();
-    $.ajax({
-        type: "GET",
-        contentType: "application/json",
-        url: "/Books/Search/"+inputValue,
-        success: function(response) {
-            console.log(inputValue)
-            console.log(response)
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-  });
-});
+
 
 </script>
 @await RenderSectionAsync("Scripts", required: false)
