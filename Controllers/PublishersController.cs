@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Project.Models;
 
 namespace Project.Controllers
 {
+    [Authorize("ADMIN")]
     public class PublishersController : Controller
     {
         private readonly CoreModelsDataContext _context;

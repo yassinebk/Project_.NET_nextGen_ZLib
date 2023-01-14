@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Project.Models;
 using Microsoft.EntityFrameworkCore;
 using Project.Controllers;
@@ -14,6 +14,7 @@ namespace Project.Data
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public List<Book> SearchBook(string key)
         {

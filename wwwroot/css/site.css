@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    font-family: Sora,-apple-system, Roboto,sans-serif !important;
+}
+
+
+
+.btn { 
+    @apply py-4 px-6 rounded-sm active:scale-75 transition-all duration-200 max-w-[300px] max-h-[200px] hover:opacity-80 font-medium font-sans
+}
+
+.btn-primary {
+    @apply bg-slate-800 hover:bg-none border-2 border-slate-800 text-gray-100
+}
+
+
+.home-img-card {
+    @apply flex flex-col gap-4 w-[240px]
+}
+
+.home-img-card .img-container {
+    @apply flex flex-col gap-3 w-[240px]
+}
+
+
+.home-img-card .title { 
+    @apply text-lg font-black text-gray-800 w-[220px]
+}
+
+.home-img-card .author {
+    @apply  text-[16px] text-gray-500 w-[220px] -mt-4
+}
+
+.img-queue-up {
+    animation: 15s ease-in-out 1s infinite alternate-reverse both running slideUp;
+}
+
+
+@keyframes slideUp {
+    from {
+        transform:translateY(100%);
+    }
+    
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+.img-queue-down {
+    animation: 15s ease-in-out 1s infinite alternate-reverse both running slideDown;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}

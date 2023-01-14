@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 using Microsoft.AspNetCore.Builder;
 using Project;
-using Project.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;

@@ -1,23 +1,33 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Project.Data;
 using Project.Models;
 
 namespace Project.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User>? _userManager;
+        private readonly SignInManager<User>? _signInManager;
+        private readonly CoreModelsDataContext _context;
 
-        public UsersController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UsersController(CoreModelsDataContext context, UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
 
         [HttpGet]
         public IActionResult Login()
@@ -28,22 +38,23 @@ namespace Project.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl)
         {
+
             if (ModelState.IsValid)
+                //   hb*x!rV%@6Ky 
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+                Console.WriteLine(model);
+                var user = _context.Users.FirstOrDefault(u => u.Email==model.Email);
+                if (user == null) return View(model);
+                var result =
+                    await _signInManager.CheckPasswordSignInAsync(user, model.Password,
+                        false);
+                Console.WriteLine(result);
                 if (result.Succeeded)
                 {
-                    if(string.IsNullOrEmpty(returnUrl))
-                        returnUrl = "/Books";
 
-                    if (!string.IsNullOrEmpty(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Email), new Claim(ClaimTypes.Role, user.Role??"USER") };
+                    await _signInManager.SignInWithClaimsAsync(user, model.RememberMe, claims);
                 }
                 else
                 {
@@ -62,6 +73,7 @@ namespace Project.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -73,7 +85,7 @@ namespace Project.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email, Role = "USER" };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -88,8 +100,8 @@ namespace Project.Controllers
                     }
                 }
             }
+
             return View(model);
         }
     }
-
 }
