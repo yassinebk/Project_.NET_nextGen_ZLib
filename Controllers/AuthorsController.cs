@@ -11,8 +11,6 @@ using Project.Models;
 
 namespace Project.Controllers
 {
-    
-    [Authorize(Roles = "ADMIN")]
     public class AuthorsController : Controller
     {
         private readonly CoreModelsDataContext _context;
@@ -23,17 +21,22 @@ namespace Project.Controllers
         }
 
         // GET: Authors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
+
         {
-            return _context.Authors != null ? 
-                View(await _context.Authors.ToListAsync()) :
-                Problem("Entity set 'CoreModelsDataContext.Authors'  is null.");
+                
+                if(page==null)
+                return View(await _context.Authors.ToListAsync());
+
+                int numberToSkip = page.Value * 10;
+                return View(_context.Authors.Skip<Author>(numberToSkip).Take<Author>(10).ToList());
+                
         }
 
         // GET: Authors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Authors == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -49,6 +52,8 @@ namespace Project.Controllers
         }
 
         // GET: Authors/Create
+
+        [Authorize("ADMIN")]
         public IActionResult Create()
         {
             return View();
@@ -57,19 +62,21 @@ namespace Project.Controllers
         // POST: Authors/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BirthDate,Bio,WikiLink")] Author author)
         {
             if (ModelState.IsValid)
             {
-                var filePath = Directory.GetCurrentDirectory() + "\\wwwroot\\authors\\" ;
+                var filePath = Directory.GetCurrentDirectory() + "\\wwwroot\\authors\\";
                 foreach (var formFile in Request.Form.Files)
                 {
                     if (formFile.Length > 0)
                     {
                         Console.WriteLine(filePath);
-                        using (var inputStream = new FileStream(filePath+formFile.FileName, FileMode.Create))
+                        using (var inputStream = new FileStream(filePath + formFile.FileName, FileMode.Create))
                         {
                             // read file to stream
                             await formFile.CopyToAsync(inputStream);
@@ -80,20 +87,25 @@ namespace Project.Controllers
                             // get file name
                             string fName = formFile.FileName;
                         }
+
                         author.AuthorImage = formFile.FileName;
                     }
                 }
+
                 _context.Add(author);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(author);
         }
 
         // GET: Authors/Edit/5
+
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Authors == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -103,15 +115,19 @@ namespace Project.Controllers
             {
                 return NotFound();
             }
+
             return View(author);
         }
 
         // POST: Authors/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,BirthDate,Bio,AuthorImage,WikiLink")] Author author)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("Id,FirstName,LastName,BirthDate,Bio,AuthorImage,WikiLink")] Author author)
         {
             if (id != author.Id)
             {
@@ -136,15 +152,19 @@ namespace Project.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(author);
         }
 
         // GET: Authors/Delete/5
+
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Authors == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -160,20 +180,19 @@ namespace Project.Controllers
         }
 
         // POST: Authors/Delete/5
+        [Authorize(Roles = "ADMIN")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string? id)
         {
-            if (_context.Authors == null)
-            {
-                return Problem("Entity set 'CoreModelsDataContext.Authors'  is null.");
-            }
+            if (id == null) return RedirectToAction(nameof(Index));
+
             var author = await _context.Authors.FindAsync(id);
             if (author != null)
             {
                 _context.Authors.Remove(author);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

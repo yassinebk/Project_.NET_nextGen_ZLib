@@ -39,22 +39,20 @@ namespace Project.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl)
         {
-
             if (ModelState.IsValid)
                 //   hb*x!rV%@6Ky 
             {
-
                 Console.WriteLine(model);
-                var user = _context.Users.FirstOrDefault(u => u.Email==model.Email);
+                var user = _context.Users.FirstOrDefault(u => u.Email == model.Email);
                 if (user == null) return View(model);
                 var result =
-                    await _signInManager.CheckPasswordSignInAsync(user, model.Password,
-                        false);
+                    await _signInManager?.CheckPasswordSignInAsync(user, model.Password,
+                        false)!;
                 Console.WriteLine(result);
                 if (result.Succeeded)
                 {
-
-                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, model.Email), new Claim(ClaimTypes.Role, user.Role??"USER") };
+                    var claims = new List<Claim>
+                        { new Claim(ClaimTypes.Name, model.Email), new Claim(ClaimTypes.Role, user.Role ?? "USER") };
                     await _signInManager.SignInWithClaimsAsync(user, model.RememberMe, claims);
                     return RedirectToAction("Index", "Books");
                 }

@@ -1,102 +1,51 @@
-@model IEnumerable<Project.Models.Book>
+@model ListWithPaginationModel<Book>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table table-auto">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Format)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Language)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FileName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookAuthor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberOfPages)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookPublisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DatePublished)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookCover)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Format)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Language)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FileName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookAuthor.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfPages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookPublisher.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatePublished)
-            </td>
-            <td>
-                <img src="~/books/@item.BookCover"   onerror="this.onerror=null; this.src='@item.BookCover'" alt="Cover image">
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ISBN">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ISBN">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ISBN">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="w-screen flex flex-col justify-center items-center gap-3">
+    @if (ViewData["searchQuery"] != null)
+    {
+        <p>Results for @ViewData["searchQuery"] </p>
+    }
+    else
+    {
+        <h1 class="text-4xl font-bold">A list of all books.</h1>
+    }
+
+    @foreach (var item in Model.ListOfItemEntities)
+    {
+        <div class="card card-side bg-base-100 shadow-xl w-[500px] h-[200px] ">
+            <figure class="min-w-[200px] h-full my-auto ">
+                <img src=@item.BookCover alt="Movie" class="h-full w-[200px] "/>
+            </figure>
+            <div class="card-body h-full">
+                <div class="h-full">
+                    <h2 class="card-title text-lg">@item.Title</h2>
+                    <h4 class="card-subtitle">@item.BookAuthor?.FullName</h4>
+                </div>
+                <a class="card-actions justify-end mt-5" asp-controller="Books" asp-action="Details" asp-route-id=@item.ISBN>
+                    <button class="btn btn-primary">Download</button>
+                </a>
+            </div>
+        </div>
+    }
+
+    <div class="h-10"></div>
+    <div class="flex gap-4 ">
+        @for (var i = 1; i <= (Model.TotalNumber); i++)
+        {
+            @if (i == Model.CurrentPage)
+            {
+                <a class="cursor-pointer border-2 border-black bg-black text-gray-400 w-[50px] h-[50px] text-lg flex items-center justify-center" href="/Books?page=@i">@i</a>
+            }
+            else
+            {
+                <a class="cursor-pointer border-2 border-black text-black px-3 py-3 w-[50px] h-[50px] text-lg flex items-center justify-center hover:bg-black hover:text-white transition-all" href="/Books?page=@i">@i</a>
+            }
+        }
+    </div>
+</div>
