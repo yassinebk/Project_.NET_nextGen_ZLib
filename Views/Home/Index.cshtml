@@ -2,8 +2,171 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="text-2xl text-orange-300">Meooooow</h1>
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="flex w-screen h-[200px] justify-between px-[5%]">
+    <img src="icon.png" alt="Companies Logo" height="200">
+    <div class="flex h-[80px] gap-4">
+        <button class="btn">Request a book</button>
+        <button class="btn btn-primary">Donate</button>
+    </div>
+
 </div>
+<div >
+    <div class="flex w-screen justify-center items-center">
+        <div class="flex flex-col items-center space-y-8">
+            <div class="space-y-4 flex flex-col items-center">
+                <h3 class="text-4xl">The World's first library</h3>
+                <h1 class="text-5xl font-bold">Where you can find all humanity's boosks, <span class="text-blue-500">W-Library</span></h1>
+                <p class="text-2xl">The successor of the hiding Z-Library but with More features more fun !</p>
+            </div>
+            <form action="" class="w-[70vw] max-w-[700px]">
+                <div class="w-full bg-white border-2 text-sans text-lg border-black px-2 flex items-center py-4  rounded-xl ">
+                    <input type="text" placeholder="Search for a book" class=" px-4 w-full active:outline-none active:border-none active:text-gray-800 border-none outline-none">
+
+                    <button type="submit">
+                        <span class="material-symbols-outlined">Search</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="w-screen flex items-center justify-around mt-[2rem] overflow-hidden">
+        <div class="flex flex-1 justify-around max-w-[800px] px-[4rem] max-h-[70vh] overflow-hidden">
+            <div class="flex-col gap-10 img-queue-up">
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1622355533i/4667024.jpg" alt="">
+                    </div>
+                    <p class="title">The Help</p>
+                    <p class="author">Kathryn Stockett</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1667708346i/43641.jpg" alt="">
+                    </div>
+                    <p class="title">Water for Elephants</p>
+                    <p class="author">Sara Gruen</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1631251689i/4214.jpg" alt="">
+                    </div>
+                    <p class="title">Life of Pi</p>
+                    <p class="author">Yann Martel</p>
+                </div>
+            </div>
+
+            <div class="flex-col  gap-10 img-queue-down">
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1327868566i/2429135.jpg" alt="">
+                    </div>
+                    <p class="title">The Girl with the Dragon Tattoo</p>
+                    <p class="author">Stieg Larsson</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1441920261i/3273.jpg" alt="">
+                    </div>
+                    <p class="title">Moloka'i</p>
+                    <p class="author">Alan Brennert</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1634748496i/58065033.jpg" alt="">
+                    </div>
+                    <p class="title">Lessons in Chemistry</p>
+                    <p class="author">Bonnie Garmus</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1636978687i/58784475.jpg" alt="">
+                    </div>
+                    <p class="title">Tomorrow, and Tomorrow, and Tomorrow</p>
+                    <p class="author">Gabrielle Zevin</p>
+                </div>
+            </div>
+        </div>
+        <div id="main-img" class="flex  h-full flex items-center justify-center">
+            <div class="flex flex-col gap-6">
+                <div class="w-full  flex-6 border-2 border-black">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1317793965i/11468377.jpg" class="w-full">
+                </div>
+                <div class="bg-fuchsia-400 rounded-full flex-1 text-xl italic text-white px-2 w-fit flex justify-center items-center mt-4">
+                    <p>New Release</p>
+                </div>
+                <div>
+                    <p class="text-4xl text-black font-bold w-[400px] flex-1">Thinking, Fast and Slow </p>
+                    <div class="h-3"></div>
+                    <p class="text-2xl font-gray-500 flex-1">Daniel Kahneman</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-1 justify-around max-w-[800px] px-[4rem] max-h-[70vh] overflow-hidden">
+            <div class="flex-col  gap-10 img-queue-down">
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1327868566i/2429135.jpg" alt="">
+                    </div>
+                    <p class="title">The Girl with the Dragon Tattoo</p>
+                    <p class="author">Stieg Larsson</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1441920261i/3273.jpg" alt="">
+                    </div>
+                    <p class="title">Moloka'i</p>
+                    <p class="author">Alan Brennert</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1634748496i/58065033.jpg" alt="">
+                    </div>
+                    <p class="title">Lessons in Chemistry</p>
+                    <p class="author">Bonnie Garmus</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1636978687i/58784475.jpg" alt="">
+                    </div>
+                    <p class="title">Tomorrow, and Tomorrow, and Tomorrow</p>
+                    <p class="author">Gabrielle Zevin</p>
+                </div>
+            </div>
+            <div class="flex-col gap-10 img-queue-up">
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1622355533i/4667024.jpg" alt="">
+                    </div>
+                    <p class="title">The Help</p>
+                    <p class="author">Kathryn Stockett</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1667708346i/43641.jpg" alt="">
+                    </div>
+                    <p class="title">Water for Elephants</p>
+                    <p class="author">Sara Gruen</p>
+                </div>
+                <div class="home-img-card">
+                    <div class="img-container">
+                        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1631251689i/4214.jpg" alt="">
+                    </div>
+                    <p class="title">Life of Pi</p>
+                    <p class="author">Yann Martel</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+</script>

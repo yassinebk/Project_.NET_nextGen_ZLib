@@ -26,6 +26,7 @@ public class Startup
         }); 
         services.AddControllersWithViews();
         services.AddAuthentication(options =>
+            
         {
             options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;

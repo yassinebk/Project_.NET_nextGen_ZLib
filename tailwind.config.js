@@ -3,6 +3,7 @@ module.exports = {
   content: [
     './Views/**/*.cshtml',
     './Views/**/**/*.cshtml',
+    './Views/**/**/**/*.cshtml',
   ],
   theme: {
     extend: {},

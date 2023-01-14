@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Project.Models;
 
@@ -15,6 +16,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var role = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+        Console.WriteLine("User role you need to see",role);
         return View();
     }
 
