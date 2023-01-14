@@ -49,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Bio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AuthorImage)
+                <img src="~/authors/@item.AuthorImage" onerror="this.onerror=null; this.src='@item.AuthorImage'" alt="Author image">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.WikiLink)

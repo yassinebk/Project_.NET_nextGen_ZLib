@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
@@ -38,9 +38,11 @@
                 <span asp-validation-for="Bio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorImage" class="control-label"></label>
-                <input asp-for="AuthorImage" class="form-control" />
-                <span asp-validation-for="AuthorImage" class="text-danger"></span>
+                <div>
+                    <label for="cover">Cover image</label>
+                    @Html.TextBox("image", "", new { type = "file", name = "image" }) <br/>
+                    @ViewBag.Message
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="WikiLink" class="control-label"></label>

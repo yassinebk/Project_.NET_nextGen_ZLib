@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -16,6 +18,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.Text.Json" Version="7.0.1" />
   </ItemGroup>
@@ -23,6 +26,8 @@
   <ItemGroup>
     <Folder Include="Library" />
     <Folder Include="Migrations" />
+    <Folder Include="wwwroot\authors" />
+    <Folder Include="wwwroot\books" />
   </ItemGroup>
 
     <ItemGroup>
@@ -30,7 +35,16 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Include="wwwroot\books\TD4.pdf" />
       <None Include="wwwroot\icon.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\books\cours_complexite3.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\books\IMG_20220701_155829.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\books\TD2 complexité.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\books\TD3b.pdf" />
+      <_ContentIncludedByDefault Remove="wwwroot\books\TD4.pdf" />
     </ItemGroup>
 
     <Target Name="Tailwind" BeforeTargets="Build">

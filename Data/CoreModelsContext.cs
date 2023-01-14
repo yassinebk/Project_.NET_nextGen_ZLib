@@ -1,9 +1,10 @@
-﻿using Project.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Project.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Project.Data
 {
-    public class CoreModelsDataContext : DbContext
+    public class CoreModelsDataContext : IdentityDbContext<User>
     {
         public CoreModelsDataContext(DbContextOptions<CoreModelsDataContext> options) : base(options)
         {

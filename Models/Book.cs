@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
 
 /*
 * Each book represents a physical copy of the titled book. That's why I am embedding the filename and the format as well as the language and 
@@ -27,7 +30,7 @@ namespace Project.Models
 
         public string FileName { set; get; } = String.Empty;
 
-
+        
         [Display(Name = "Author")]
         public Author? BookAuthor { set; get; }
 
